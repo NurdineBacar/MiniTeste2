@@ -1,0 +1,30 @@
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.SectionPart;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
+
+public class yuyui extends SectionPart {
+
+	/**
+	 * Create the SectionPart.
+	 * @param parent
+	 * @param toolkit
+	 * @param style
+	 */
+	public yuyui(Composite parent, FormToolkit toolkit, int style) {
+		super(parent, toolkit, style);
+		createClient(getSection(), toolkit);
+	}
+
+	/**
+	 * Fill the section.
+	 */
+	private void createClient(Section section, FormToolkit toolkit) {
+		section.setText("New SectionPart");
+		Composite container = toolkit.createComposite(section);
+
+		section.setClient(container);
+	}
+
+}

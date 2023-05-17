@@ -1,0 +1,261 @@
+package InterfacesGraficas;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
+import java.awt.SystemColor;
+import java.awt.Color;
+import javax.swing.border.TitledBorder;
+import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import java.awt.GridLayout;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+import javax.swing.JScrollPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+
+import javax.swing.JFormattedTextField;
+
+public class PraticaMarcel extends JFrame {
+
+	private JPanel contentPane;
+	private String opera="Indefinido";
+	private double result;
+	private double resultado;
+	private JTextField txtSentece;
+	private JComboBox cbOperacao;
+	private JTextField txtExpV1;
+	private JTextField txtExpV2;
+	private JLabel lblResultado;
+	private JFormattedTextField txtV1,txtV2;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PraticaMarcel frame = new PraticaMarcel();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public PraticaMarcel() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 590, 439);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Dados Inputs", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 0, 0)));
+		panel.setBackground(SystemColor.desktop);
+		panel.setBounds(0, 11, 355, 237);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Variavel 1");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(19, 57, 76, 14);
+		panel.add(lblNewLabel);
+		
+		JLabel lblVariavel = new JLabel("Variavel 2");
+		lblVariavel.setForeground(Color.WHITE);
+		lblVariavel.setBounds(18, 96, 76, 14);
+		panel.add(lblVariavel);
+		
+		JLabel lblOperacao = new JLabel("Operacao");
+		lblOperacao.setForeground(Color.WHITE);
+		lblOperacao.setBounds(19, 131, 76, 14);
+		panel.add(lblOperacao);
+		
+		cbOperacao = new JComboBox();
+		cbOperacao.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				txtSentece.setText(txtV1.getText()+cbOperacao.getSelectedItem()+txtV2.getText());
+				if(cbOperacao.getSelectedItem().toString().equals("!")) {
+					txtV2.setEnabled(false);
+					txtExpV2.setEnabled(false);
+					txtV2.setText("");
+					txtExpV2.setText("");
+				}else {
+					txtV2.setEnabled(true);
+					txtExpV1.setEnabled(true);
+					txtExpV2.setEnabled(true);
+					txtExpV2.setText("1");
+				}
+			}
+		});
+		cbOperacao.setModel(new DefaultComboBoxModel(new String[] {"----Selecione---", "+", "-", "*", "/", "!", "%", "|"}));
+		cbOperacao.setBounds(84, 128, 115, 22);
+		panel.add(cbOperacao);
+		
+		txtSentece = new JTextField();
+		txtSentece.setEditable(false);
+		txtSentece.setBounds(26, 186, 293, 20);
+		panel.add(txtSentece);
+		txtSentece.setColumns(10);
+		
+		JLabel lblExp = new JLabel("Exp. 1");
+		lblExp.setForeground(Color.WHITE);
+		lblExp.setBounds(245, 56, 40, 14);
+		panel.add(lblExp);
+		
+		txtExpV1 = new JTextField();
+		txtExpV1.setText("1");
+		txtExpV1.setBounds(285, 54, 40, 20);
+		panel.add(txtExpV1);
+		txtExpV1.setColumns(10);
+		
+		JLabel lblExp_2 = new JLabel("Exp. 2");
+		lblExp_2.setForeground(Color.WHITE);
+		lblExp_2.setBounds(246, 96, 39, 14);
+		panel.add(lblExp_2);
+		
+		txtExpV2 = new JTextField();
+		txtExpV2.setText("1");
+		txtExpV2.setColumns(10);
+		txtExpV2.setBounds(283, 90, 40, 20);
+		panel.add(txtExpV2);
+		try {
+			MaskFormatter formatacao= new MaskFormatter("####################");
+			
+			txtV1 = new JFormattedTextField(formatacao);
+		} catch (ParseException e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(lblExp_2,"Errrrrrrrrro");
+		}
+		
+		txtV1.setBounds(83, 54, 152, 20);
+		panel.add(txtV1);
+		
+		JFormattedTextField txtV2 = new JFormattedTextField();
+		txtV2.setBounds(84, 93, 152, 20);
+		panel.add(txtV2);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBounds(357, 11, 217, 237);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JButton btnExecutar = new JButton("EXECUTAR");
+		btnExecutar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+							
+					int exp1=Integer.parseInt(txtExpV1.getText());
+					int exp2=Integer.parseInt(txtExpV2.getText());
+					double v1=Math.pow(Double.parseDouble(txtV1.getText()), exp1) ;
+					double v2= Math.pow(Double.parseDouble(txtV2.getText()), exp2);
+					
+					int inteiroV1= Integer.parseInt(txtV1.getText());
+					
+					switch(cbOperacao.getSelectedItem().toString()) {
+					case "!": 
+						  System.out.println("Hello motherfucker");
+						  resultado=v1;
+						  while(v1>1) {
+								resultado=resultado*(v1-1); 
+								
+								v1--;
+							 }
+						  break;
+					case "+": resultado=v1+v2; break;
+					case "-": resultado=v1-v2; break;
+					case "*": resultado= v1*v2;break;
+					case "/": if(v2==0) {
+						int s1= JOptionPane.showConfirmDialog(null, "Tens certeza que e isso que vc quer?");
+						if(s1==0) {
+						int s2=	JOptionPane.showConfirmDialog(null, "De verdade?");
+						if(s2==0) {
+							JOptionPane.showMessageDialog(null, "Isso nao existe seu cabrao");
+						}
+						}
+					}else {
+						resultado=v1/v2;
+					}
+					break;
+					case "%": resultado=v1%v2; break;
+					
+					}
+					
+				} catch (NumberFormatException e2) {
+					int exp1=Integer.parseInt(txtExpV1.getText());
+					int inteiroV1= (int) Math.pow(Integer.parseInt(txtV1.getText()), exp1);
+
+					 resultado= inteiroV1;
+						
+					 while(inteiroV1>1) {
+						resultado=resultado*(inteiroV1-1); 
+						
+						inteiroV1--;
+					 }
+				}catch (NullPointerException e2) {
+					// TODO: handle exception
+				}catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+				lblResultado.setText(resultado+"");
+				
+			}
+		});
+		btnExecutar.setForeground(new Color(255, 255, 255));
+		btnExecutar.setBackground(new Color(0, 255, 64));
+		btnExecutar.setBounds(22, 50, 171, 29);
+		panel_1.add(btnExecutar);
+		
+		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.setForeground(new Color(255, 255, 255));
+		btnLimpar.setBackground(new Color(0, 255, 0));
+		btnLimpar.setBounds(22, 106, 171, 29);
+		panel_1.add(btnLimpar);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 248, 574, 152);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Resultado: ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_1.setBounds(10, 11, 118, 27);
+		panel_2.add(lblNewLabel_1);
+		
+		lblResultado = new JLabel("...............................");
+		lblResultado.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblResultado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblResultado.setBounds(107, 20, 385, 101);
+		panel_2.add(lblResultado);
+	}
+}

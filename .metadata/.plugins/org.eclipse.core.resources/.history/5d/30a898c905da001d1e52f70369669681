@@ -1,0 +1,29 @@
+
+public class Quadrado extends Shape{
+	private String aprovado;
+
+	public Quadrado(String codigo, String nome, String idade, String genero, String nacionalidade, String aprovado) {
+		super(codigo, nome, idade, genero, nacionalidade);
+		this.aprovado=aprovado;
+	}
+	
+	public void verficacaoDeMaioridade() {
+			int newIdade= Integer.parseInt(super.idade);
+			String situation=(newIdade<10)? "Crianca":(newIdade<18)?  "Adolescente":(newIdade<40)? "Jovem":"Senhor de idade";
+			System.out.println(situation);
+	}
+	
+	
+	public String Impressao() {
+		return "Serio isso";
+	}
+
+	public static void main(String[] args) {
+		Quadrado q= new Quadrado("1", "Nurdine", "31", "M", "Moz", "Sim");
+		q.verficacaoDeMaioridade();
+		q.Impressao();
+		
+		Shape nur= new Quadrado("1", "Rachid", "12", "M", "Moz", "Sim");
+		nur.toString();
+	}
+}

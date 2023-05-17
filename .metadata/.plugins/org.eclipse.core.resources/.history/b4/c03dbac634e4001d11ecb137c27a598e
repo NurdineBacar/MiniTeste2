@@ -1,0 +1,9 @@
+package ClasseDeObjecto;
+
+public class Nuro {
+	int codigo;
+	
+	public Nuro(int codigo) {
+		this.codigo=codigo;
+	}
+}

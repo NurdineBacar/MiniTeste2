@@ -1,0 +1,179 @@
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+public class JanelaRegisto extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtNome;
+	private JTextField txtIdade;
+	public Vector pessoa;
+	private String[] cabecalho={"Nome","Idade","Genero","Pai","Mãe"};
+	private JTable table;
+	private JTextField txtPai;
+	private JTextField txtMae;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JanelaRegisto frame = new JanelaRegisto();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JanelaRegisto() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 518, 483);
+		pessoa= new Vector();
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("File");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem itemPesquisa = new JMenuItem("Pesquisar");
+		mnNewMenu.add(itemPesquisa);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Exit");
+		mnNewMenu.add(mntmNewMenuItem);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "REGISTO", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(2, 11, 490, 186);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Nome");
+		lblNewLabel.setBounds(10, 22, 47, 14);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Idade");
+		lblNewLabel_1.setBounds(232, 22, 46, 14);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Genero");
+		lblNewLabel_2.setBounds(10, 66, 46, 14);
+		panel.add(lblNewLabel_2);
+		
+		txtNome = new JTextField();
+		txtNome.setBounds(52, 15, 170, 28);
+		panel.add(txtNome);
+		txtNome.setColumns(10);
+		
+		txtIdade = new JTextField();
+		txtIdade.setText("");
+		txtIdade.setBounds(271, 15, 86, 28);
+		panel.add(txtIdade);
+		txtIdade.setColumns(10);
+		
+		JComboBox cGenero = new JComboBox();
+		cGenero.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Femenino"}));
+		cGenero.setBounds(52, 62, 128, 22);
+		panel.add(cGenero);
+		
+		JLabel lblNewLabel_3 = new JLabel("Pai");
+		lblNewLabel_3.setBounds(10, 103, 35, 14);
+		panel.add(lblNewLabel_3);
+		
+		JLabel cMae = new JLabel("Mãe");
+		cMae.setBounds(232, 103, 46, 14);
+		panel.add(cMae);
+		
+		JButton btnRegistar = new JButton("REGISTAR");
+		btnRegistar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int idade= Integer.parseInt(txtIdade.getText());
+				String genero=(cGenero.getSelectedIndex()==0)? "Masculino":(cGenero.getSelectedIndex()==1)? "Femenino":null;
+				DefaultTableModel val = (DefaultTableModel) table.getModel();
+				Pessoa a= new Pessoa();
+				pessoa.add(new Pessoa(txtNome.getText(), idade, genero, a, a));
+				val.addColumn(e);
+				}
+		});
+		btnRegistar.setBounds(368, 146, 112, 28);
+		panel.add(btnRegistar);
+		
+		JButton btnLimpar = new JButton("LIMPAR");
+		btnLimpar.setBounds(247, 148, 96, 25);
+		panel.add(btnLimpar);
+		
+//		txtPai = new JTextField();
+		txtPai.setBounds(52, 95, 160, 20);
+		panel.add(txtPai);
+		txtPai.setColumns(10);
+		
+		txtMae = new JTextField();
+		txtMae.setText("");
+		txtMae.setBounds(271, 95, 160, 20);
+		panel.add(txtMae);
+		txtMae.setColumns(10);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(2, 208, 490, 203);
+		contentPane.add(panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0};
+		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panel_1.add(scrollPane, gbc_scrollPane);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"NOME", "MAE", "PAI", "GENERO", "IDADE"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(106);
+		table.getColumnModel().getColumn(1).setPreferredWidth(127);
+		table.getColumnModel().getColumn(2).setPreferredWidth(106);
+		scrollPane.setViewportView(table);
+	}
+}

@@ -1,0 +1,15 @@
+
+public abstract class Shape {
+	protected String codigo,nome,idade, genero, nacionalidade;
+	
+	public  Shape(String codigo,String nome,String idade,String genero,String nacionalidade) {
+			this.codigo=codigo;
+			this.nome= nome;
+			this.idade=idade;
+			this.genero=genero;
+			this.nacionalidade= nacionalidade;
+	}
+
+	public abstract void verficacaoDeMaioridade();
+}
+

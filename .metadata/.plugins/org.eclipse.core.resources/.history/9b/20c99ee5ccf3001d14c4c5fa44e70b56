@@ -1,0 +1,6 @@
+
+public class SWT {
+
+	public static final int WRAP = 0;
+
+}

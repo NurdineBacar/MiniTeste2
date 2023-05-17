@@ -1,0 +1,224 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JFormattedTextField;
+
+public class Calculadora extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtV1;
+	private JTextField txtV2;
+	private JTextField txtSimbolo;
+	private double resultado;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Calculadora frame = new Calculadora();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Calculadora() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 489);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+		panel.setBounds(0, 195, 312, 255);
+		contentPane.add(panel);
+		panel.setLayout(new GridLayout(0, 3, 3, 3));
+		
+		JButton btn7 = new JButton("7");
+		btn7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel.add(btn7);
+		
+		JButton btn8 = new JButton("8");
+		panel.add(btn8);
+		
+		JButton btn9 = new JButton("9");
+		panel.add(btn9);
+		
+		JButton btn4 = new JButton("4");
+		panel.add(btn4);
+		
+		JButton btn5 = new JButton("5");
+		panel.add(btn5);
+		
+		JButton btn6 = new JButton("6");
+		panel.add(btn6);
+		
+		JButton btn1 = new JButton("1");
+		panel.add(btn1);
+		
+		JButton btn2 = new JButton("2");
+		panel.add(btn2);
+		
+		JButton btn3 = new JButton("3");
+		panel.add(btn3);
+		
+		JButton btnNegative = new JButton("+/-");
+		panel.add(btnNegative);
+		
+		JButton btn0 = new JButton("0");
+		panel.add(btn0);
+		
+		JButton btnPoint = new JButton(".");
+		panel.add(btnPoint);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.BLACK);
+		panel_1.setBounds(315, 195, 116, 255);
+		contentPane.add(panel_1);
+		panel_1.setLayout(new GridLayout(5, 0, 6, 3));
+		
+		JButton btnD = new JButton("/");
+		btnD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtSimbolo.setText("/");
+			}
+		});
+		panel_1.add(btnD);
+		
+		JButton btnM = new JButton("X");
+		btnM.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtSimbolo.setText("X");
+			}
+		});
+		panel_1.add(btnM);
+		
+		JButton btnS = new JButton("-");
+		btnS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtSimbolo.setText("-");
+			}
+		});
+		panel_1.add(btnS);
+		
+		JButton btnA = new JButton("+");
+		btnA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtSimbolo.setText("+");
+			}
+		});
+		panel_1.add(btnA);
+		
+		JButton btnI = new JButton("=");
+		btnI.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				double v1= Double.parseDouble(txtV1.getText());
+				double v2= Double.parseDouble(txtV2.getText());
+				String simbolo= txtSimbolo.getText();
+				
+				switch(simbolo) {
+				case "+": resultado=v1+v2; break;
+				case "-": resultado=v1-v2; break;
+				case "X": resultado= v1*v2;
+				case "/": if(v2==0) {
+					int s1= JOptionPane.showConfirmDialog(null, "Tens certeza que e isso que vc quer?");
+					if(s1==1) {
+					int s2=	JOptionPane.showConfirmDialog(null, "De verdade?");
+					if(s2==1) {
+						JOptionPane.showMessageDialog(null, "Isso nao existe seu cabrao");
+					}
+					}
+				}
+				}
+				
+			}
+		});
+		panel_1.add(btnI);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.BLACK);
+		panel_2.setBounds(0, 144, 434, 48);
+		contentPane.add(panel_2);
+		panel_2.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JButton btnExp = new JButton("^");
+		panel_2.add(btnExp);
+		
+		JButton btnFact = new JButton("!");
+		panel_2.add(btnFact);
+		
+		JButton btnResto = new JButton("R/");
+		panel_2.add(btnResto);
+		
+		JButton btnDivisaoInteira = new JButton("I/");
+		panel_2.add(btnDivisaoInteira);
+		
+		txtV1 = new JTextField();
+		txtV1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				String numero="0123456789";
+				String ABc="a";
+				if(txtV1.getText().contains(ABc)) {
+					txtV1.setForeground(Color.RED);
+				}else {
+					txtV1.setForeground(Color.black);
+				}
+			}
+		});
+		txtV1.setBounds(10, 11, 176, 29);
+		contentPane.add(txtV1);
+		txtV1.setColumns(10);
+		
+		txtV2 = new JTextField();
+		txtV2.setColumns(10);
+		txtV2.setBounds(248, 11, 176, 29);
+		contentPane.add(txtV2);
+		
+		txtSimbolo = new JTextField();
+		txtSimbolo.setBounds(193, 15, 48, 20);
+		contentPane.add(txtSimbolo);
+		txtSimbolo.setColumns(10);
+		
+		JTextArea result = new JTextArea();
+		result.setEditable(false);
+		result.setEnabled(false);
+		result.setBounds(15, 57, 404, 29);
+		contentPane.add(result);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(10, 97, 130, 20);
+		
+		contentPane.add(formattedTextField);
+	}
+}

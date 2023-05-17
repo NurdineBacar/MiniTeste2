@@ -1,0 +1,225 @@
+package InterfacesGraficas;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import BD.Bd;
+import ClasseDeObjecto.Produto;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.border.LineBorder;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ListSelectionModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Venda_UI extends JFrame {
+
+	private JPanel contentPane;
+	private JTable tabelaListaProduto;
+	private JTextField txtNomeProduto;
+	private JTextField txtQuantidade;
+	private JTable tabelaVenda;
+	private int fila;
+	private String [][] venda;
+	private double soma,somaTotal;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Venda_UI frame = new Venda_UI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Venda_UI() {
+		String [][] tabela= null;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1024, 720);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
+		panel.setBounds(10, 11, 627, 342);
+		contentPane.add(panel);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
+		tabelaListaProduto = new JTable();
+		tabelaListaProduto.setBackground(new Color(255, 255, 255));
+		tabelaListaProduto.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				fila=tabelaListaProduto.getSelectedRow();
+				txtNomeProduto.setText(tabelaListaProduto.getValueAt(fila, 1)+"");
+			}
+		});
+		tabelaListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tabelaListaProduto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				fila=tabelaListaProduto.getSelectedRow();
+				txtNomeProduto.setText(tabelaListaProduto.getValueAt(fila, 1)+"");
+			}
+		});
+		scrollPane.setViewportView(tabelaListaProduto);
+		tabelaListaProduto.setModel(new DefaultTableModel(
+			Bd.tabelaProdutoVenda(),
+			new String[] {
+				"#CODIGO", "NOME DO PRODUTO", "PRECO DE VENDA", "QUANTIDADE"
+			}
+		));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1.setBounds(638, 11, 360, 342);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Filtro Por Categoria");
+		lblNewLabel.setBounds(129, 12, 110, 14);
+		panel_1.add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"                                       ---Selecione---", "Fruta", "Vegetal", "Carne", "Marisco", "Sabao", "Farinhas", "Refrigerante", "Chocolate", "Iogurte", "Cereal", "Bolacha", "Caneta", "Caderno", "Chips"}));
+		comboBox.setBackground(new Color(255, 255, 255));
+		comboBox.setBounds(15, 40, 329, 30);
+		panel_1.add(comboBox);
+		
+		JButton btnNewButton = new JButton("CANCELAR");
+		btnNewButton.setFont(new Font("Comic Sans MS", Font.BOLD, 11));
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setBounds(66, 93, 100, 33);
+		panel_1.add(btnNewButton);
+		
+		JButton btnAplicar = new JButton("APLICAR");
+		btnAplicar.setFont(new Font("Comic Sans MS", Font.BOLD, 11));
+		btnAplicar.setBackground(new Color(255, 255, 255));
+		btnAplicar.setBounds(193, 91, 100, 33);
+		panel_1.add(btnAplicar);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 255, 255));
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_2.setBounds(0, 147, 360, 194);
+		panel_1.add(panel_2);
+		panel_2.setLayout(null);
+		
+		txtNomeProduto = new JTextField();
+		txtNomeProduto.setEditable(false);
+		txtNomeProduto.setBounds(22, 35, 292, 26);
+		panel_2.add(txtNomeProduto);
+		txtNomeProduto.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nome do Produto");
+		lblNewLabel_1.setBounds(22, 10, 98, 14);
+		panel_2.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Quantidade");
+		lblNewLabel_2.setBounds(22, 72, 81, 14);
+		panel_2.add(lblNewLabel_2);
+		
+		txtQuantidade = new JTextField();
+		txtQuantidade.setBounds(22, 97, 110, 20);
+		panel_2.add(txtQuantidade);
+		txtQuantidade.setColumns(10);
+		
+		JButton btnAdicionarVenda = new JButton("Adicionar Venda");
+		btnAdicionarVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fila= tabelaListaProduto.getSelectedRow();
+				
+				int codigo=Integer.parseInt(tabelaListaProduto.getValueAt(fila, 0)+"");
+				int quantidadeCalculo=Integer.parseInt(txtQuantidade.getText());
+				String nomeProduto="",catg="",lote="";
+				ArrayList<Produto> listaProduto=Bd.listarProdutos();
+				int o=1;
+				String tabela[][]=new String[o][5];
+				for(int i=0;i<listaProduto.size();i++) {
+					if(codigo==listaProduto.get(i).getCodigo()) {
+						nomeProduto=listaProduto.get(i).getNomeDoProduto();
+						catg=listaProduto.get(i).getCategoria();
+						lote= listaProduto.get(i).getLote();
+						soma=quantidadeCalculo*listaProduto.get(i).getPrecoVenda();
+					}
+					
+					if(tabela[i][0]==null) {
+						tabela[i][0]=nomeProduto;
+						tabela[i][1]=catg;
+						tabela[i][2]=lote;
+						tabela[i][3]=txtQuantidade.getText();
+						tabela[i][4]=soma+"";	
+					}else {
+						break;
+					}
+				}	
+			}
+		});
+		btnAdicionarVenda.setFont(new Font("Comic Sans MS", Font.BOLD, 11));
+		btnAdicionarVenda.setBackground(new Color(255, 255, 255));
+		btnAdicionarVenda.setBounds(185, 132, 142, 33);
+		panel_2.add(btnAdicionarVenda);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 364, 988, 260);
+		contentPane.add(panel_3);
+		panel_3.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_3.add(scrollPane_1);
+		
+		tabelaVenda = new JTable();
+		scrollPane_1.setViewportView(tabelaVenda);
+		tabelaVenda.setModel(new DefaultTableModel(
+			tabela,
+			new String[] {
+				"NOME DO PRODUTO", "CATEGORIA", "LOTE", "QUANTIDADE", "TOTAL"
+			}
+		));
+		tabelaListaProduto.getColumnModel().getColumn(1).setPreferredWidth(134);
+		tabelaListaProduto.getColumnModel().getColumn(2).setPreferredWidth(110);
+		tabelaListaProduto.getColumnModel().getColumn(3).setPreferredWidth(96);
+		ArrayList<Produto> listaP= Bd.listarProdutos();
+				
+		
+	}
+}

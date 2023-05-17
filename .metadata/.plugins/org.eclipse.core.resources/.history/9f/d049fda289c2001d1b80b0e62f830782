@@ -1,0 +1,65 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class sdfghjk extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtT;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					sdfghjk frame = new sdfghjk();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public sdfghjk() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		txtT = new JTextField();
+		txtT.setBounds(24, 33, 218, 20);
+		contentPane.add(txtT);
+		txtT.setColumns(10);
+		
+		JLabel nome = new JLabel("New label");
+		nome.setBounds(265, 36, 46, 14);
+		contentPane.add(nome);
+		
+		JButton btn = new JButton("button");
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nome.setText("VAi tomar no cu");
+				JOptionPane.showMessageDialog(btn, txtT.getText());
+			}
+		});
+		btn.setBounds(25, 80, 89, 23);
+		contentPane.add(btn);
+	}
+}

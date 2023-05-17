@@ -1,0 +1,256 @@
+package InterfacesGraficas;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+import ClasseDeObjecto.Fornecedor;
+
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import javax.swing.JTabbedPane;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import java.awt.GridLayout;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
+
+public class Fornecedor_UI extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtNomeFornecedor;
+	private JTextField txtNumeroFornecedor;
+	private JTextField txtEnderecoFornecedor;
+	JLabel lblNumero,lblNome,lblEndereco;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTable tabelaEditar;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Fornecedor_UI frame = new Fornecedor_UI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Fornecedor_UI() {
+		setTitle("REGISTO FORNECEDOR");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 614, 387);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		
+		tabbedPane.setBounds(0, 0, 598, 348);
+		contentPane.add(tabbedPane);
+		
+		JPanel RegistarF = new JPanel();
+		tabbedPane.addTab("Registo De Fornecedores", null, RegistarF, null);
+		RegistarF.setLayout(null);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setLayout(null);
+		panel_1_1.setBackground(new Color(255, 69, 0));
+		panel_1_1.setBounds(0, 0, 251, 320);
+		RegistarF.add(panel_1_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Numero:");
+		lblNewLabel_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1.setBounds(24, 183, 95, 14);
+		panel_1_1.add(lblNewLabel_1_1);
+		
+		lblNome = new JLabel("Nome");
+		lblNome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNome.setForeground(Color.WHITE);
+		lblNome.setFont(new Font("Gill Sans MT", Font.BOLD, 14));
+		lblNome.setBounds(55, 133, 126, 21);
+		panel_1_1.add(lblNome);
+		
+		lblNumero = new JLabel("............................................");
+		lblNumero.setForeground(Color.WHITE);
+		lblNumero.setBackground(Color.WHITE);
+		lblNumero.setBounds(89, 183, 146, 14);
+		panel_1_1.add(lblNumero);
+		
+		lblEndereco = new JLabel("............................................");
+		lblEndereco.setForeground(Color.WHITE);
+		lblEndereco.setBackground(Color.WHITE);
+		lblEndereco.setBounds(89, 212, 146, 14);
+		panel_1_1.add(lblEndereco);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Endereco:");
+		lblNewLabel_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_1.setBounds(24, 211, 95, 14);
+		panel_1_1.add(lblNewLabel_1_1_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("img");
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\Edma\\eclipse-workspace\\Projecto Mercearia\\user.png"));
+		lblNewLabel_3.setBounds(71, 17, 95, 107);
+		panel_1_1.add(lblNewLabel_3);
+		
+		JPanel panel_1_2 = new JPanel();
+		panel_1_2.setLayout(null);
+		panel_1_2.setBorder(null);
+		panel_1_2.setBackground(new Color(248, 248, 255));
+		panel_1_2.setBounds(250, 0, 348, 320);
+		RegistarF.add(panel_1_2);
+		
+		JLabel lblNewLabel = new JLabel("Nome");
+		lblNewLabel.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel.setBounds(147, 30, 42, 14);
+		panel_1_2.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Numero");
+		lblNewLabel_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1.setBounds(144, 85, 52, 14);
+		panel_1_2.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Endereco");
+		lblNewLabel_2.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_2.setBounds(144, 147, 52, 14);
+		panel_1_2.add(lblNewLabel_2);
+		
+		txtNomeFornecedor = new JTextField();
+		txtNomeFornecedor.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				lblNome.setText("");
+				lblNome.setText(txtNomeFornecedor.getText().toUpperCase());
+			}
+		});
+		txtNomeFornecedor.setColumns(10);
+		txtNomeFornecedor.setBounds(17, 54, 311, 20);
+		panel_1_2.add(txtNomeFornecedor);
+		
+		txtNumeroFornecedor = new JTextField();
+		txtNumeroFornecedor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				lblNumero.setText("");
+				lblNumero.setText(txtNumeroFornecedor.getText());
+			}
+		});
+		txtNumeroFornecedor.setColumns(10);
+		txtNumeroFornecedor.setBounds(17, 112, 311, 20);
+		panel_1_2.add(txtNumeroFornecedor);
+		
+		txtEnderecoFornecedor = new JTextField();
+		txtEnderecoFornecedor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				lblEndereco.setText("");
+				lblEndereco.setText(txtEnderecoFornecedor.getText().toUpperCase());
+			}
+		});
+		txtEnderecoFornecedor.setColumns(10);
+		txtEnderecoFornecedor.setBounds(17, 172, 311, 20);
+		panel_1_2.add(txtEnderecoFornecedor);
+		
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		btnCancelar.setBackground(new Color(248, 248, 255));
+		btnCancelar.setBounds(44, 273, 112, 26);
+		panel_1_2.add(btnCancelar);
+		
+		JButton btnRegistar = new JButton("REGISTAR");
+		btnRegistar.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		btnRegistar.setBackground(new Color(248, 248, 255));
+		btnRegistar.setBounds(178, 273, 112, 26);
+		panel_1_2.add(btnRegistar);
+		
+		JPanel EditarF = new JPanel();
+		tabbedPane.addTab("Editar Fornecedor", null, EditarF, null);
+		EditarF.setLayout(null);
+		
+		JLabel lblNewLabel_3_4 = new JLabel("Nome ");
+		lblNewLabel_3_4.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_4.setBounds(19, 15, 93, 14);
+		EditarF.add(lblNewLabel_3_4);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(103, 11, 281, 22);
+		EditarF.add(textField);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(103, 38, 281, 22);
+		EditarF.add(textField_1);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("Numero");
+		lblNewLabel_3_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_1_1.setBounds(19, 42, 93, 14);
+		EditarF.add(lblNewLabel_3_1_1);
+		
+		JLabel lblNewLabel_3_5_1 = new JLabel("Endereco");
+		lblNewLabel_3_5_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_5_1.setBounds(19, 69, 111, 14);
+		EditarF.add(lblNewLabel_3_5_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(103, 65, 281, 22);
+		EditarF.add(textField_2);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 123, 593, 197);
+		EditarF.add(panel);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
+		tabelaEditar = new JTable();
+		tabelaEditar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(tabelaEditar);
+		tabelaEditar.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"NOME", "NUMERO", "ENDERECO"
+			}
+		));
+		
+		JButton btnNewButton = new JButton("EDITAR");
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		btnNewButton.setBounds(431, 27, 111, 43);
+		EditarF.add(btnNewButton);
+		
+		JPanel removerP = new JPanel();
+		tabbedPane.addTab("Remover Fornecedor", null, removerP, null);
+		removerP.setLayout(null);
+	}
+}

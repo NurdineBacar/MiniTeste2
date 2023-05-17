@@ -1,0 +1,22 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Pessoa m1= new Pessoa("Nurdine", 23, "M", null, null);
+		Pessoa p1= new Pessoa("Nurdine", 23, "M", null, null);
+		
+		Pessoa p4= new Pessoa("Nurdine", 23, "M", p1.getPai(),m1.getMae());
+		Pessoa m2= new Pessoa("Nurdine", 23, "M", null, null);
+		Pessoa p2= new Pessoa("Nurdine", 23, "M", null, null);
+		
+		Pessoa m3= new Pessoa("Nurdine", 23, "M", null, null);
+		
+		Pessoa p5= new Pessoa("Nurdine", 23, "M", null, null);
+		Pessoa p3= new Pessoa("Nurdine", 23, "M", null, null);
+		
+		Pessoa m4= new Pessoa("Nurdine", 23, "M", null, null);
+		System.out.println(p4);
+	}
+
+}

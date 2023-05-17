@@ -1,0 +1,4 @@
+
+ class Quadrado extends Shape{
+
+}

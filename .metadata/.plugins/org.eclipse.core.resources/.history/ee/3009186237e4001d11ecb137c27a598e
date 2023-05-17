@@ -1,0 +1,58 @@
+package ClasseDeObjecto;
+
+public class Fornecedor {
+	 private int codigo;
+	 private String nomeDoFornecedor, numeroDofornecedor, endereco ;
+	
+	 public Fornecedor(int codigo, String nomeDoFornecedor, String numeroDofornecedor, String endereco) {
+		this.codigo = codigo;
+		this.nomeDoFornecedor = nomeDoFornecedor;
+		this.numeroDofornecedor = numeroDofornecedor;
+		this.endereco = endereco;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNomeDoFornecedor() {
+		return nomeDoFornecedor;
+	}
+
+	public void setNomeDoFornecedor(String nomeDoFornecedor) {
+		this.nomeDoFornecedor = nomeDoFornecedor;
+	}
+
+	public String getNumeroDofornecedor() {
+		return numeroDofornecedor;
+	}
+
+	public void setNumeroDofornecedor(String numeroDofornecedor) {
+		this.numeroDofornecedor = numeroDofornecedor;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	 
+	 public void registoForncedor() {
+		 
+	 }
+	 
+	 public void edicarFornecedor() {
+		 
+	 }
+	 
+	 public void removerFornecedor() {
+		 
+	 }
+	 
+}

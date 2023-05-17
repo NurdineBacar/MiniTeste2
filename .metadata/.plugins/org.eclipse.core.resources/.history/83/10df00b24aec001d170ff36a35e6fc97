@@ -1,0 +1,30 @@
+package ClasseDeObjecto;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Venda {
+	private int codigo;
+	private Produto produto;
+	private  ArrayList<Produto>  listaDeProdutos;
+	private int valorAPagar;
+	private  String dataDaVenda;
+	
+	
+	public void listarProdutos() {
+		
+	}
+	
+	public void calculoDaVenda() {
+		
+	}
+	
+	public void emissaoDeRecibo() {
+		
+	}
+	
+	public void venda() {
+		
+	}
+	
+}

@@ -1,0 +1,12 @@
+
+public class Pessoa {
+	private String nome, idade,genero;
+	Pessoa pai;
+	Pessoa Mae;
+	
+	public Pessoa(String nome,String idade, String genero) {
+		this.nome=nome;
+		this.idade=idade;
+		this.genero=genero;
+	}
+}

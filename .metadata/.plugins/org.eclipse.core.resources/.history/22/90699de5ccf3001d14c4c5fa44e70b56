@@ -1,0 +1,19 @@
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+
+public class jijoij extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public jijoij() {
+		setLayout(null);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setSelectedIcon(new ImageIcon("C:\\Users\\Edma\\Downloads\\Imagens para design\\Icons\\incomes-control.png"));
+		btnNewButton.setBounds(399, 11, 132, 81);
+		add(btnNewButton);
+
+	}
+}

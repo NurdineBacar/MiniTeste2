@@ -1,0 +1,84 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
+
+public class JanelaPai extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtNomePai;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JanelaPai frame = new JanelaPai();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JanelaPai() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 387, 448);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Nome do Pai");
+		lblNewLabel.setBounds(26, 25, 89, 14);
+		contentPane.add(lblNewLabel);
+		
+		txtNomePai = new JTextField();
+		txtNomePai.setBounds(105, 22, 230, 20);
+		contentPane.add(txtNomePai);
+		txtNomePai.setColumns(10);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(26, 85, 315, 268);
+		contentPane.add(panel);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
+		JList lista = new JList();
+		lista.setBorder(new TitledBorder(null, "Lista Pai", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(lista);
+		
+		JButton btnAdiconarPaiNome = new JButton("Adicionar Nome Pai");
+		btnAdiconarPaiNome.setBounds(207, 53, 128, 23);
+		contentPane.add(btnAdiconarPaiNome);
+		
+		JButton btnPaiObjecto = new JButton("Adicionar Pai Objecto");
+		btnPaiObjecto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnPaiObjecto.setBounds(105, 364, 149, 34);
+		contentPane.add(btnPaiObjecto);
+	}
+}

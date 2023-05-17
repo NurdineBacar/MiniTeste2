@@ -1,0 +1,14 @@
+package BD;
+
+import javax.swing.JPanel;
+
+public class Painel extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public Painel() {
+
+	}
+
+}

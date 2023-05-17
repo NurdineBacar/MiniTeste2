@@ -1,0 +1,701 @@
+package InterfacesGraficas;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import ClasseDeObjecto.Usuario;
+import ClasseDeObjecto.Venda;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JTabbedPane;
+import javax.swing.JCheckBox;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.GridLayout;
+import javax.swing.table.DefaultTableModel;
+
+import BD.Bd;
+
+import javax.swing.border.LineBorder;
+import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.border.CompoundBorder;
+
+public class Usuario_Cadastro_UI extends JFrame {
+
+	private JPanel contentPane;
+	private String genero,tipoDeUsuario,usuarios[][],generoUpdate,tipoDeUsuarioUpdate,codigoRemove;
+	private int fila;
+	private JTextField txtPrimeiroNome;
+	private JTextField txtApelido;
+	private JTextField txtNumeroDeTelefone;
+	private JPasswordField txtPassword;
+	private JButton btnRegistar,btnEditar;
+	private JTextField txtNomeUpdate;
+	private JTextField txtApelidoUpdate;
+	private JTextField txtNumeroUpdate;
+	private JPasswordField txtPasswordUpdate;
+	private JTable tabela;
+	private JTable tabelaRemove;
+	private JComboBox cbTipoDeUsuario;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Usuario_Cadastro_UI frame = new Usuario_Cadastro_UI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	
+	public Usuario_Cadastro_UI() {
+		setFont(new Font("Gill Sans MT", Font.BOLD, 12));
+		setTitle("REGISTO DE USUARIO");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 684, 457);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 0, 677, 429);
+		contentPane.add(tabbedPane);
+		
+		JPanel registarU = new JPanel();
+		registarU.setBackground(new Color(255, 255, 255));
+		tabbedPane.addTab("Registo de Usuario", null, registarU, null);
+		tabbedPane.setBackgroundAt(0, new Color(255, 255, 255));
+		registarU.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBackground(new Color(255, 69, 0));
+		panel_1.setBounds(0, 0, 257, 390);
+		registarU.add(panel_1);
+		
+		JLabel lblUsername = new JLabel("Username");
+		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsername.setForeground(Color.WHITE);
+		lblUsername.setFont(new Font("Gill Sans MT", Font.BOLD, 14));
+		lblUsername.setBounds(51, 127, 126, 21);
+		panel_1.add(lblUsername);
+		
+		JLabel lblNewLabel_1 = new JLabel("Primeiro Nome:");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1.setBounds(20, 177, 95, 14);
+		panel_1.add(lblNewLabel_1);
+		
+		JLabel lblNome = new JLabel("............................................");
+		lblNome.setForeground(Color.WHITE);
+		lblNome.setBackground(Color.WHITE);
+		lblNome.setBounds(125, 177, 95, 14);
+		panel_1.add(lblNome);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Apelido:");
+		lblNewLabel_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1.setBounds(20, 205, 95, 14);
+		panel_1.add(lblNewLabel_1_1);
+		
+		JLabel lblApelido = new JLabel("............................................");
+		lblApelido.setForeground(Color.WHITE);
+		lblApelido.setBackground(Color.WHITE);
+		lblApelido.setBounds(125, 205, 95, 14);
+		panel_1.add(lblApelido);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Genero:");
+		lblNewLabel_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_1.setBounds(20, 230, 95, 14);
+		panel_1.add(lblNewLabel_1_1_1);
+		
+		JLabel lblGenero = new JLabel("............................................");
+		lblGenero.setForeground(Color.WHITE);
+		lblGenero.setBackground(Color.WHITE);
+		lblGenero.setBounds(125, 230, 95, 14);
+		panel_1.add(lblGenero);
+		
+		JLabel lblNewLabel_1_1_2 = new JLabel("Tipo de Usuario: ");
+		lblNewLabel_1_1_2.setForeground(Color.WHITE);
+		lblNewLabel_1_1_2.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_2.setBounds(20, 255, 95, 14);
+		panel_1.add(lblNewLabel_1_1_2);
+		
+		JLabel lblTipoDeUsuario = new JLabel("............................................");
+		lblTipoDeUsuario.setForeground(Color.WHITE);
+		lblTipoDeUsuario.setBackground(Color.WHITE);
+		lblTipoDeUsuario.setBounds(125, 255, 95, 14);
+		panel_1.add(lblTipoDeUsuario);
+		
+		JLabel lblNewLabel_1_1_3 = new JLabel("Numero:");
+		lblNewLabel_1_1_3.setForeground(Color.WHITE);
+		lblNewLabel_1_1_3.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_3.setBounds(20, 284, 95, 14);
+		panel_1.add(lblNewLabel_1_1_3);
+		
+		JLabel lblNumero = new JLabel("............................................");
+		lblNumero.setForeground(Color.WHITE);
+		lblNumero.setBackground(Color.WHITE);
+		lblNumero.setBounds(125, 284, 95, 14);
+		panel_1.add(lblNumero);
+		
+		JLabel lblNewLabel = new JLabel("img");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Edma\\eclipse-workspace\\Projecto Mercearia\\user.png"));
+		lblNewLabel.setBounds(67, 15, 94, 100);
+		panel_1.add(lblNewLabel);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setLayout(null);
+		panel_1_1.setBackground(Color.WHITE);
+		panel_1_1.setBounds(255, 0, 407, 390);
+		registarU.add(panel_1_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("Primeiro Nome");
+		lblNewLabel_3.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3.setBounds(78, 23, 93, 14);
+		panel_1_1.add(lblNewLabel_3);
+		
+		txtPrimeiroNome = new JTextField();
+		txtPrimeiroNome.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				lblNome.setText("");
+				lblNome.setText(txtPrimeiroNome.getText().toUpperCase());
+				lblUsername.setText("");
+				lblUsername.setText(txtPrimeiroNome.getText().toLowerCase()+"."+txtApelido.getText().toLowerCase());
+				
+				if(txtPrimeiroNome.getText().length()>0 && txtPrimeiroNome.getText().contains(" ")) {
+					JOptionPane.showMessageDialog(null, "Nao pode ter espacos");
+					btnRegistar.setEnabled(false);
+					txtPrimeiroNome.setForeground(Color.red);
+				}else if(txtPrimeiroNome.getText().length()>0 && txtPrimeiroNome.getText().contains("")) {
+					txtPrimeiroNome.setForeground(Color.BLACK);
+					btnRegistar.setEnabled(true);
+				}
+			}
+		});
+		txtPrimeiroNome.setColumns(10);
+		txtPrimeiroNome.setBounds(77, 46, 305, 22);
+		panel_1_1.add(txtPrimeiroNome);
+		
+		txtApelido = new JTextField();
+		txtApelido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				lblApelido.setText("");
+				lblApelido.setText(txtApelido.getText().toUpperCase());
+				lblUsername.setText("");
+				lblUsername.setText(txtPrimeiroNome.getText().toLowerCase()+"."+txtApelido.getText().toLowerCase());
+				
+				if(txtApelido.getText().length()>0 && txtApelido.getText().contains(" ")) {
+					JOptionPane.showMessageDialog(null, "Nao pode ter espacos");
+					btnRegistar.setEnabled(false);
+					txtApelido.setForeground(Color.red);
+				}else if(txtApelido.getText().length()>0 && txtApelido.getText().contains("")) {
+					txtApelido.setForeground(Color.BLACK);
+					btnRegistar.setEnabled(true);
+				}
+			}
+		});
+		txtApelido.setColumns(10);
+		txtApelido.setBounds(78, 98, 305, 22);
+		panel_1_1.add(txtApelido);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("Apelido");
+		lblNewLabel_3_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_1.setBounds(79, 75, 93, 14);
+		panel_1_1.add(lblNewLabel_3_1);
+		
+		JLabel lblNewLabel_3_2 = new JLabel("Genero");
+		lblNewLabel_3_2.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_2.setBounds(78, 135, 93, 14);
+		panel_1_1.add(lblNewLabel_3_2);
+		
+		JLabel lblNewLabel_3_3 = new JLabel("Senha");
+		lblNewLabel_3_3.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_3.setBounds(79, 259, 93, 14);
+		panel_1_1.add(lblNewLabel_3_3);
+		
+		JComboBox cbGenero = new JComboBox();
+		cbGenero.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				genero=(cbGenero.getSelectedIndex()==1)? "Masculino":(cbGenero.getSelectedIndex()==2)? "Femenino":"Tu e gay ou lesbica?";
+				lblGenero.setText(genero);
+			}		
+		});
+		cbGenero.setModel(new DefaultComboBoxModel(new String[] {"                   ---Selecione---", "                        Masculino", "                        Femenino"}));
+		cbGenero.setBackground(Color.WHITE);
+		cbGenero.setBounds(181, 131, 201, 22);
+		panel_1_1.add(cbGenero);
+		
+		txtNumeroDeTelefone = new JTextField();
+		txtNumeroDeTelefone.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				lblNumero.setText("");
+				lblNumero.setText(txtNumeroDeTelefone.getText());
+			}
+		});
+		txtNumeroDeTelefone.setColumns(10);
+		txtNumeroDeTelefone.setBounds(77, 227, 305, 22);
+		panel_1_1.add(txtNumeroDeTelefone);
+		
+		JLabel lblNewLabel_3_5 = new JLabel("Numero de telefone");
+		lblNewLabel_3_5.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_5.setBounds(78, 204, 119, 14);
+		panel_1_1.add(lblNewLabel_3_5);
+		
+		btnRegistar = new JButton("REGISTAR");
+		btnRegistar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Usuario.registo(txtPrimeiroNome.getText().toUpperCase(),txtApelido.getText().toUpperCase(), genero, tipoDeUsuario, txtPassword.getText(), txtNumeroDeTelefone.getText());
+				} catch (Exception e1) {
+					
+				}
+				
+			//DefaultTableModel tabelaUpdate=(DefaultTableModel) tabela.getModel();
+			try {
+				tabela.setModel(new DefaultTableModel(
+						Bd.tabela(),new String[] {
+								"#CODIGO", "NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA DE TELEFONE"
+						}
+						));
+				tabelaRemove.setModel(new DefaultTableModel(
+						Bd.tabela(),new String[] {"#CODIGO", "NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA DE TELEFONE"}));
+				
+				txtApelido.setText("");
+				txtPrimeiroNome.setText("");
+				txtNumeroDeTelefone.setText("");
+				txtPassword.setText("");
+				cbGenero.setSelectedIndex(0);
+				cbTipoDeUsuario.setSelectedIndex(0);
+				
+			} catch (IOException e1) {
+				
+			}
+				
+				
+			}
+		});
+		btnRegistar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRegistar.setBackground(Color.WHITE);
+		btnRegistar.setBounds(269, 322, 113, 26);
+		panel_1_1.add(btnRegistar);
+		
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBackground(Color.WHITE);
+		btnCancelar.setBounds(145, 321, 114, 29);
+		panel_1_1.add(btnCancelar);
+		
+		JLabel lblNewLabel_3_2_1 = new JLabel("Tipo de Usuario");
+		lblNewLabel_3_2_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_2_1.setBounds(78, 170, 93, 14);
+		panel_1_1.add(lblNewLabel_3_2_1);
+		
+		cbTipoDeUsuario = new JComboBox();
+		cbTipoDeUsuario.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				tipoDeUsuario= (cbTipoDeUsuario.getSelectedIndex()==1)? "Administrador":(cbTipoDeUsuario.getSelectedIndex()==2)? "Funcionario":"Tu e o que ladrao?";
+				lblTipoDeUsuario.setText(tipoDeUsuario);
+			}		
+		});
+		cbTipoDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"                   ---Selecione---", "                        Administrador", "                        Funcionario"}));
+		cbTipoDeUsuario.setBackground(Color.WHITE);
+		cbTipoDeUsuario.setBounds(181, 166, 201, 22);
+		panel_1_1.add(cbTipoDeUsuario);
+		
+		JCheckBox chcMostrarSenha = new JCheckBox("");
+		chcMostrarSenha.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(chcMostrarSenha.isSelected()) {
+					txtPassword.echoCharIsSet();
+				}
+			}
+		});
+		chcMostrarSenha.setBackground(new Color(255, 255, 255));
+		chcMostrarSenha.setBounds(362, 282, 20, 23);
+		panel_1_1.add(chcMostrarSenha);
+		
+		txtPassword = new JPasswordField();
+		txtPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(txtPrimeiroNome.getText().length()>0 && txtApelido.getText().length()>0 && txtPassword.getText().length()>0 && txtPassword.getText().length()<4) {
+					 btnRegistar.enable(true);
+					}else {
+						btnRegistar.enable(false);
+					}
+			}
+		});
+		txtPassword.setBounds(78, 284, 278, 20);
+		panel_1_1.add(txtPassword);
+		
+		JPanel editarU = new JPanel();
+		editarU.setBackground(new Color(255, 255, 255));
+		tabbedPane.addTab("Editar Usuario", null, editarU, null);
+		editarU.setLayout(null);
+		
+		JLabel lblNewLabel_3_4 = new JLabel("Primeiro Nome");
+		lblNewLabel_3_4.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_4.setBounds(29, 23, 93, 14);
+		editarU.add(lblNewLabel_3_4);
+		
+		txtNomeUpdate = new JTextField();
+		txtNomeUpdate.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(txtNomeUpdate.getText().length()>0 && txtNomeUpdate.getText().contains(" ")) {
+					JOptionPane.showMessageDialog(null, "Nao pode ter espacos");
+					btnEditar.setEnabled(false);
+					txtNomeUpdate.setForeground(Color.red);
+				}else if(txtNomeUpdate.getText().length()>0 && txtNomeUpdate.getText().contains("")) {
+					txtNomeUpdate.setForeground(Color.BLACK);
+					btnEditar.setEnabled(true);
+				}
+				
+			}
+		});
+		txtNomeUpdate.setColumns(10);
+		txtNomeUpdate.setBounds(146, 19, 248, 22);
+		editarU.add(txtNomeUpdate);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("Apelido");
+		lblNewLabel_3_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_1_1.setBounds(29, 50, 93, 14);
+		editarU.add(lblNewLabel_3_1_1);
+		
+		txtApelidoUpdate = new JTextField();
+		txtApelidoUpdate.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(txtApelidoUpdate.getText().length()>0 && txtApelidoUpdate.getText().contains(" ")) {
+					JOptionPane.showMessageDialog(null, "Nao pode ter espacos");
+					btnEditar.setEnabled(false);
+					txtApelidoUpdate.setForeground(Color.red);
+				}else if(txtApelidoUpdate.getText().length()>0 && txtApelidoUpdate.getText().contains("")) {
+					txtApelidoUpdate.setForeground(Color.BLACK);
+					btnEditar.setEnabled(true);
+				}
+				
+			}
+		});
+		txtApelidoUpdate.setColumns(10);
+		txtApelidoUpdate.setBounds(146, 46, 248, 22);
+		editarU.add(txtApelidoUpdate);
+		
+		JLabel lblNewLabel_3_2_2 = new JLabel("Genero");
+		lblNewLabel_3_2_2.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_2_2.setBounds(409, 23, 93, 14);
+		editarU.add(lblNewLabel_3_2_2);
+		
+		JComboBox cbGeneroUpdate = new JComboBox();
+		cbGeneroUpdate.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				generoUpdate=(cbGeneroUpdate.getSelectedIndex()==1)? "Masculino":(cbGeneroUpdate.getSelectedIndex()==2)? "Femenino":"Tu e gay ou lesbica?";
+			}
+		});
+		cbGeneroUpdate.setModel(new DefaultComboBoxModel(new String[] {"        ---Selecione---", "             Masculino", "             Femenino"}));
+		cbGeneroUpdate.setBackground(Color.WHITE);
+		cbGeneroUpdate.setBounds(505, 19, 139, 22);
+		editarU.add(cbGeneroUpdate);
+		
+		JLabel lblNewLabel_3_2_1_1 = new JLabel("Tipo de Usuario");
+		lblNewLabel_3_2_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_2_1_1.setBounds(409, 50, 93, 14);
+		editarU.add(lblNewLabel_3_2_1_1);
+		
+		JComboBox cbTipoDeUsuarioUpdate = new JComboBox();
+		cbTipoDeUsuarioUpdate.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				tipoDeUsuarioUpdate= (cbTipoDeUsuarioUpdate.getSelectedIndex()==1)? "Administrador":(cbTipoDeUsuarioUpdate.getSelectedIndex()==2)? "Funcionario":"Tu e o que ladrao?";
+
+			}
+		});
+		cbTipoDeUsuarioUpdate.setModel(new DefaultComboBoxModel(new String[] {"        ---Selecione---", "             Administrador", "             Funcionario"}));
+		cbTipoDeUsuarioUpdate.setBackground(Color.WHITE);
+		cbTipoDeUsuarioUpdate.setBounds(505, 46, 139, 22);
+		editarU.add(cbTipoDeUsuarioUpdate);
+		
+		JLabel lblNewLabel_3_5_1 = new JLabel("Numero de telefone");
+		lblNewLabel_3_5_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_5_1.setBounds(29, 77, 111, 14);
+		editarU.add(lblNewLabel_3_5_1);
+		
+		txtNumeroUpdate = new JTextField();
+		txtNumeroUpdate.setColumns(10);
+		txtNumeroUpdate.setBounds(146, 73, 248, 22);
+		editarU.add(txtNumeroUpdate);
+		
+		JLabel lblNewLabel_3_3_1 = new JLabel("Senha");
+		lblNewLabel_3_3_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_3_3_1.setBounds(29, 108, 93, 14);
+		editarU.add(lblNewLabel_3_3_1);
+		
+		txtPasswordUpdate = new JPasswordField();
+		txtPasswordUpdate.setBounds(146, 102, 248, 20);
+		editarU.add(txtPasswordUpdate);
+		
+		JCheckBox chcMostrarSenha_1 = new JCheckBox("");
+		chcMostrarSenha_1.setBackground(Color.WHITE);
+		chcMostrarSenha_1.setBounds(407, 100, 20, 23);
+		editarU.add(chcMostrarSenha_1);
+		
+		btnEditar = new JButton("EDITAR");
+		btnEditar.setBackground(new Color(255, 255, 255));
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fila= tabela.getSelectedRow();
+				String codigo=tabela.getValueAt(fila, 0).toString();
+								
+				try {
+					Usuario.editarUsuario(codigo, txtNomeUpdate.getText().toUpperCase(),txtApelidoUpdate.getText().toUpperCase(), generoUpdate, tipoDeUsuarioUpdate, txtPasswordUpdate.getText(), txtNumeroUpdate.getText());
+					tabela.setModel(new DefaultTableModel(
+							Bd.tabela(),
+							new String[] {
+								"#CODIGO", "NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA DE TELEFONE"
+							}));
+					tabelaRemove.setModel(new DefaultTableModel(
+							Bd.tabela(),
+							new String[] {
+								"#CODIGO", "NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA DE TELEFONE"
+							}));
+				
+				} catch (IndexOutOfBoundsException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}catch(FileNotFoundException e1) {
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnEditar.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		btnEditar.setBounds(505, 81, 137, 43);
+		editarU.add(btnEditar);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 159, 662, 231);
+		editarU.add(panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
+		tabela = new JTable();
+		tabela.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				fila= tabela.getSelectedRow();
+				txtNomeUpdate.setText(tabela.getValueAt(fila, 1)+"");
+				txtApelidoUpdate.setText(tabela.getValueAt(fila, 2)+"");
+				txtNumeroUpdate.setText(tabela.getValueAt(fila, 7)+"");
+				txtPasswordUpdate.setText(tabela.getValueAt(fila, 6)+"");
+				
+				String num= tabela.getValueAt(fila, 0).toString();
+				JOptionPane.showMessageDialog(null, num);
+			}
+		});
+		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tabela.setBorder(new CompoundBorder());
+		scrollPane.setViewportView(tabela);
+		try {
+			tabela.setModel(new DefaultTableModel(
+				Bd.tabela(),
+				new String[] {
+					"#CODIGO", "NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA DE TELEFONE"
+				}
+			));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		tabela.getColumnModel().getColumn(5).setResizable(false);
+		
+		JPanel removerU = new JPanel();
+		removerU.setBackground(new Color(255, 255, 255));
+		tabbedPane.addTab("Remover Usuario", null, removerU, null);
+		removerU.setLayout(null);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(255, 69, 0));
+		panel_2.setBounds(0, 0, 662, 157);
+		removerU.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Edma\\eclipse-workspace\\Projecto Mercearia\\user.png"));
+		lblNewLabel_2.setBounds(25, 11, 100, 106);
+		panel_2.add(lblNewLabel_2);
+		
+		JLabel lblUsernameRemove = new JLabel("Username");
+		lblUsernameRemove.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsernameRemove.setForeground(Color.WHITE);
+		lblUsernameRemove.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblUsernameRemove.setBounds(5, 125, 140, 21);
+		panel_2.add(lblUsernameRemove);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Primeiro Nome:");
+		lblNewLabel_1_2.setForeground(Color.WHITE);
+		lblNewLabel_1_2.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_2.setBounds(170, 11, 95, 14);
+		panel_2.add(lblNewLabel_1_2);
+		
+		JLabel lblNome_1 = new JLabel("............................................");
+		lblNome_1.setForeground(Color.WHITE);
+		lblNome_1.setBackground(Color.WHITE);
+		lblNome_1.setBounds(275, 11, 155, 14);
+		panel_2.add(lblNome_1);
+		
+		JLabel lblApelido_1 = new JLabel("............................................");
+		lblApelido_1.setForeground(Color.WHITE);
+		lblApelido_1.setBackground(Color.WHITE);
+		lblApelido_1.setBounds(275, 39, 155, 14);
+		panel_2.add(lblApelido_1);
+		
+		JLabel lblNewLabel_1_1_4 = new JLabel("Apelido:");
+		lblNewLabel_1_1_4.setForeground(Color.WHITE);
+		lblNewLabel_1_1_4.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_4.setBounds(170, 39, 95, 14);
+		panel_2.add(lblNewLabel_1_1_4);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("Genero:");
+		lblNewLabel_1_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1_1_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_1_1.setBounds(170, 64, 95, 14);
+		panel_2.add(lblNewLabel_1_1_1_1);
+		
+		JLabel lblGenero_1 = new JLabel("............................................");
+		lblGenero_1.setForeground(Color.WHITE);
+		lblGenero_1.setBackground(Color.WHITE);
+		lblGenero_1.setBounds(275, 64, 155, 14);
+		panel_2.add(lblGenero_1);
+		
+		JLabel lblNewLabel_1_1_2_1 = new JLabel("Tipo de Usuario: ");
+		lblNewLabel_1_1_2_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1_2_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_2_1.setBounds(170, 89, 95, 14);
+		panel_2.add(lblNewLabel_1_1_2_1);
+		
+		JLabel lblTipoDeUsuario_1 = new JLabel("............................................");
+		lblTipoDeUsuario_1.setForeground(Color.WHITE);
+		lblTipoDeUsuario_1.setBackground(Color.WHITE);
+		lblTipoDeUsuario_1.setBounds(275, 89, 155, 14);
+		panel_2.add(lblTipoDeUsuario_1);
+		
+		JLabel lblNewLabel_1_1_3_1 = new JLabel("Numero:");
+		lblNewLabel_1_1_3_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1_3_1.setFont(new Font("Gill Sans MT", Font.BOLD, 11));
+		lblNewLabel_1_1_3_1.setBounds(170, 118, 95, 14);
+		panel_2.add(lblNewLabel_1_1_3_1);
+		
+		JLabel lblNumero_1 = new JLabel("............................................");
+		lblNumero_1.setForeground(Color.WHITE);
+		lblNumero_1.setBackground(Color.WHITE);
+		lblNumero_1.setBounds(275, 118, 155, 14);
+		panel_2.add(lblNumero_1);
+		
+		JButton btnRemover = new JButton("REMOVER");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					Usuario.removerUsuario(codigoRemove);
+					
+					try {
+						tabela.setModel(new DefaultTableModel(
+								Bd.tabela(),
+								new String[] {
+									"#CODIGO", "NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA DE TELEFONE"
+								}));
+						tabelaRemove.setModel(new DefaultTableModel(
+								Bd.tabela(),
+								new String[] {
+									"#CODIGO", "NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA DE TELEFONE"
+								}));
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+					
+			}
+		});
+		btnRemover.setFont(new Font("Gill Sans MT", Font.BOLD, 12));
+		btnRemover.setBackground(new Color(255, 255, 255));
+		btnRemover.setBounds(492, 60, 118, 43);
+		panel_2.add(btnRemover);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(0, 155, 662, 235);
+		removerU.add(panel_3);
+		panel_3.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_3.add(scrollPane_1);
+		
+		tabelaRemove = new JTable();
+		tabelaRemove.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tabelaRemove.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				fila= tabelaRemove.getSelectedRow();
+				lblNome_1.setText(tabelaRemove.getValueAt(fila, 1)+"");
+				lblApelido_1.setText(tabelaRemove.getValueAt(fila, 2)+"");
+				lblGenero_1.setText(tabelaRemove.getValueAt(fila, 3)+"");
+				lblTipoDeUsuario_1.setText(tabelaRemove.getValueAt(fila, 4)+"");
+				lblUsernameRemove.setText(tabelaRemove.getValueAt(fila, 5)+"");
+				lblNumero_1.setText(tabelaRemove.getValueAt(fila, 7)+"");
+				codigoRemove=tabelaRemove.getValueAt(fila, 0)+"";
+			}
+		});
+		try {
+			tabelaRemove.setModel(new DefaultTableModel(
+				Bd.tabela(),
+				new String[] {
+					"#CODIGO", "PRIMEIRO NOME", "APELIDO", "GENERO", "TIPO DE USUARIO", "USERNAME", "SENHA", "N\u00BA TELEFONE"
+				}
+			));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		scrollPane_1.setViewportView(tabelaRemove);
+	}
+}

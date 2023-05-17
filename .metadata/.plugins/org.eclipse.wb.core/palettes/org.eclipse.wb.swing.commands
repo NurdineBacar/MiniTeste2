@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<addCategory
+		id="category_1684228616567"
+		name="Custom"
+		description="Container for custom components"
+		visible="true"
+		open="true"/>
+	<addComponent
+		id="custom_1684228616567"
+		name="JceSecurity"
+		description="Creates javax.crypto.JceSecurity component."
+		visible="true"
+		class="javax.crypto.JceSecurity"
+		category="category_1684228616567"/>
+	<addComponent
+		id="custom_1684228655600"
+		name="Date"
+		description="Creates java.sql.Date component."
+		visible="true"
+		class="java.sql.Date"
+		category="category_1684228616567"/>
+</commands>

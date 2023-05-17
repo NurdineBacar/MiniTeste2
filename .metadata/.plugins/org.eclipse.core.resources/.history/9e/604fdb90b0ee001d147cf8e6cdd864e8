@@ -1,0 +1,145 @@
+package ClasseDeObjecto;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.util.ArrayList;
+
+import BD.Bd;
+
+public class Venda {
+	private int codigo;
+	private Produto produto;
+	private int valorAPagar,quantidade;
+	private  String produtoString,dataDaVenda,venda;
+	
+	
+	
+	public Venda(int codigo,String venda, Produto produto, int valorAPagar, String dataDaVenda) {
+		this.codigo = codigo;
+		this.venda=venda;
+		this.produto = produto;
+		this.valorAPagar = valorAPagar;
+		this.dataDaVenda = dataDaVenda;
+	}
+	
+	public Venda(String produtoString, int valorAPagar, String dataDaVenda) {
+		this.codigo = this.setCodigo();
+		this.venda="";
+		this.produtoString = produtoString;
+		this.valorAPagar = valorAPagar;
+		this.dataDaVenda = dataDaVenda;
+	}
+	
+	
+	
+	
+	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	
+	public int setCodigo() {
+		int codigo=0;
+		try {
+			ArrayList<Venda> listaVenda= Bd.listarVenda();
+			
+			for(int i=0;i<listaVenda.size();i++) {
+				if(listaVenda.get(i).getCodigo()==codigo) {
+					codigo++;
+				}
+			}
+		} catch (Exception e) {
+			
+		}
+		return this.codigo=codigo;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public int getValorAPagar() {
+		return valorAPagar;
+	}
+
+	
+	
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public void setValorAPagar(int valorAPagar) {
+		this.valorAPagar = valorAPagar;
+	}
+
+	public String getProdutoString() {
+		return produtoString;
+	}
+
+	public void setProdutoString(String produtoString) {
+		this.produtoString = produtoString;
+	}
+
+	public String getDataDaVenda() {
+		return dataDaVenda;
+	}
+
+	public void setDataDaVenda(String dataDaVenda) {
+		this.dataDaVenda = dataDaVenda;
+	}
+
+	public String getVenda() {
+		return venda;
+	}
+
+	public void setVenda(String venda) {
+		this.venda = venda;
+	}
+
+	public String toString() {
+		return codigo+";"+venda+";"+produto.toString3()+";"+quantidade+";"+valorAPagar+";"+dataDaVenda;
+	}
+	
+	public static void registoVenda(String nomeProduto,String categoria,String lote, String quantidade,double soma) {
+		try {
+			FileWriter file= new FileWriter("venda.txt",true);
+			BufferedWriter write= new BufferedWriter(file);
+			
+			Venda venda= new Ve
+			write.write();
+			write.newLine();
+			write.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO: handle exception
+		}catch(Exception e) {
+			
+		}
+	}
+	
+	public void calculoDaVenda() {
+		
+	}
+	
+	public void emissaoDeRecibo() {
+		
+	}
+	
+	public void venda() {
+		
+	}
+	
+}
